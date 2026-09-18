@@ -2,7 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
 import { ArrowDown, ArrowLeft, ArrowRight, Check, Copy, Eye, EyeOff, KeyRound, LockKeyhole, LogOut, Plus, Search, ShieldCheck, Trash2, X } from 'lucide-react'
 import type { Session } from '@supabase/supabase-js'
-import { acceptInvite, createInviteSecret, createVaultKey, inviteEnvelope, seal, unseal, unlockVaultKey } from './crypto'
+import { createInviteSecret, createVaultKey, inviteEnvelope, seal, unseal, unlockVaultKey } from './crypto'
+import { joinVaultInvitation } from './invitations'
 import { configured, supabase } from './supabase'
 
 type Entry = { id: string; name: string; username: string; password: string; email: string; description: string }
@@ -172,17 +173,20 @@ export default function App() {
     const [id, urlSecret] = token.split('.')
     const secret = urlSecret || inviteCode.trim()
     if (!id || !secret) { setError('This invitation link is invalid.'); return }
-    setBusy(true); setError('')
+    setBusy(true); setError(''); setNotice('')
     try {
-      const { data: invitation, error: invitationError } = await supabase.from('vault_invitations').select('id,vault_id,email,iv,ciphertext').eq('id', id).single()
-      if (invitationError) throw invitationError
-      if (invitation.email.toLowerCase() !== session.user.email?.toLowerCase()) throw new Error('Sign in with the email address this invitation was sent to.')
-      const { data: v } = await supabase.from('vaults').select('id,owner_id,name').eq('id', invitation.vault_id).single()
-      if (!v) throw new Error('The invited vault is unavailable.')
-      const result = await acceptInvite(passphrase, secret, { iv: invitation.iv, data: invitation.ciphertext })
-      const { error: memberError } = await supabase.rpc('accept_vault_invitation', { p_invitation_id: id, p_salt: result.salt, p_wrapped_key: result.wrappedKey })
-      if (memberError) throw memberError
-      setMembership({ vault_id: invitation.vault_id, salt: result.salt, wrapped_key: result.wrappedKey, is_owner: false }); setVault(v as Vault); setKey(result.vaultKey); setPassphrase(''); setInviteCode(''); history.replaceState({}, '', '/')
+      const joined = await joinVaultInvitation(supabase, {
+        invitationId: id,
+        email: session.user.email ?? '',
+        code: secret,
+        passphrase,
+      }, result => {
+        setMembership({ vault_id: result.vaultId, salt: result.salt, wrapped_key: result.wrappedKey, is_owner: false })
+        setVault(null); setKey(result.vaultKey); setPassphrase(''); setInviteCode(''); setInviteLink('')
+        history.replaceState({}, '', '/')
+      })
+      setVault(joined.vault)
+      if (joined.notice) setNotice(joined.notice)
     } catch (e) { setError(messageFor(e)) } finally { setBusy(false) }
   }
 
