@@ -1,35 +1,14 @@
 # README screenshots
 
-Keep documentation screenshots in this directory so GitHub can render them using relative paths. Image files are optional; the main README currently describes the screens and uses Mermaid diagrams for the architecture.
-
-## Suggested images
+The screenshots in this directory are optimized for GitHub. The sidebar has been cropped before the profile email line so a personal address is not published.
 
 | Filename | Capture |
 | --- | --- |
-| `dashboard.png` | Desktop vault with a few clearly fictional entries and the invitation form. |
-| `create-account.png` | Account creation screen with empty form fields. |
-| `unlock-vault.png` | Locked vault screen with an empty passphrase field. |
+| `unlockvault.png` | Desktop vault with fictional entries and the invitation form. |
+| `loginpage.png` | Account creation screen with demo form values. |
+| `vaultpassphrase.png` | Locked vault screen with a demo passphrase placeholder. |
 | `sidebar.png` | Navigation and account controls using a demo identity. |
 
-Use the existing app screens. Show example identities such as `demo@example.com` and fictional credential labels. Keep passwords hidden and omit actual account addresses, vault codes, authentication links, SMTP settings, and browser tabs containing private information. If using an existing screenshot, review the visible account identity and record details before publishing it.
+Use fictional entries and demo identities when capturing replacements. Keep passwords hidden and omit actual account addresses, vault codes, authentication links, SMTP settings, and browser tabs containing private information.
 
-## Embed images after adding the files
-
-Place the following in the main README's interface section once the corresponding PNG files exist:
-
-```markdown
-![Hearth shared vault dashboard with demo credentials](docs/screenshots/dashboard.png)
-
-| Create an account | Unlock your vault |
-| --- | --- |
-| ![Hearth account creation screen](docs/screenshots/create-account.png) | ![Hearth vault unlock screen](docs/screenshots/unlock-vault.png) |
-
-<details>
-<summary>Sidebar and account controls</summary>
-
-![Hearth sidebar with a demo account](docs/screenshots/sidebar.png)
-
-</details>
-```
-
-Paths in that example are relative to the root README. Commit the image files along with the Markdown that references them so the repository does not contain broken image links.
+The main README embeds these images using HTML width attributes so GitHub displays them consistently.
