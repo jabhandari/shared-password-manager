@@ -1,13 +1,13 @@
 # Hearth
 
-A private shared password vault for two people.
+A private shared password vault for up to six household members.
 
 Hearth lets two account holders store and sync shared login details such as usernames, passwords, email addresses, and notes. Credential fields are encrypted in the browser before they are written to Supabase. Each person uses a separate account and a separate vault unlock passphrase.
 
 ## Features
 
 - Email/password accounts through Supabase Auth
-- One shared vault with a database-enforced two-member limit
+- One shared vault with a database-enforced six-member limit
 - Separate unlock passphrase for each member
 - Browser-side AES-256-GCM encryption for complete credential records
 - Argon2id passphrase derivation with per-member salts
@@ -30,7 +30,6 @@ The images below are sanitized demo screenshots. They use consistent GitHub-frie
 <table>
   <tr>
     <td align="center"><img src="docs/screenshots/loginpage.png" alt="Hearth account creation screen" width="420"><br><sub>Account creation</sub></td>
-    <td align="center"><img src="docs/screenshots/vaultpassphrase.png" alt="Hearth locked vault screen" width="420"><br><sub>Vault unlock</sub></td>
     <td align="center"><img src="docs/screenshots/sidebar.png" alt="Hearth sidebar navigation" width="220"><br><sub>Sidebar</sub></td>
   </tr>
 </table>
@@ -54,7 +53,7 @@ The Vite React application in `src/` owns the screens, session state, vault stat
 
 ### Supabase
 
-Supabase provides authentication and Postgres access. Row Level Security (RLS) restricts vault and entry reads/writes to members. SQL functions create vaults, create invitations, accept invitations, and enforce the two-member limit. Supabase Realtime notifies clients when encrypted entry rows change.
+Supabase provides authentication and Postgres access. Row Level Security (RLS) restricts vault and entry reads/writes to members. SQL functions create vaults, create invitations, accept invitations, and enforce the six-member limit. Supabase Realtime notifies clients when encrypted entry rows change.
 
 ### Invitation function
 
