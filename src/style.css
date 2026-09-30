@@ -125,3 +125,200 @@ body,button,input,textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,
   [data-theme="dark"] .main{margin-left:258px}
   [data-theme="dark"] .topbar{padding-left:42px;padding-right:42px}
 }
+
+/* Phone layout: keep the content full width and move navigation below it. */
+@media(max-width:760px){
+  body{overflow-x:hidden}
+  .app-shell{padding-bottom:68px}
+  .sidebar{
+    inset:auto 0 0;
+    width:100%;
+    height:64px;
+    padding:8px 12px;
+    flex-direction:row;
+    align-items:center;
+    gap:8px;
+    border:0;
+    border-top:1px solid var(--line);
+    box-shadow:0 -6px 20px #20241f0d;
+  }
+  .sidebar>.brand,.sidebar .workspace,.sidebar .nav-label{display:none}
+  .sidebar .nav-item,
+  .sidebar .nav-item.active{
+    width:auto;
+    height:46px;
+    flex:1;
+    min-width:0;
+    margin:0;
+    padding:0 8px;
+    justify-content:center;
+    gap:7px;
+    font-size:11px;
+    white-space:nowrap;
+  }
+  .sidebar .nav-item>span:last-child{display:none}
+  .sidebar .nav-item .star{display:inline;font-size:18px}
+  .sidebar-bottom{display:block;margin:0 0 0 auto}
+  .sidebar-bottom .security-note,
+  .sidebar .profile-name,
+  .sidebar .profile .icon-button{display:none}
+  .sidebar .profile{border:0;padding:0;margin:0;justify-content:center}
+  .main{margin-left:0;min-width:0}
+  .topbar{height:58px;padding:0 16px;gap:10px}
+  .crumb{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .top-actions{min-width:0;gap:8px}
+  .invite-button{width:34px;flex:none;padding:0;font-size:0}
+  .invite-button svg{width:16px;height:16px}
+  .content{width:100%;max-width:none;padding:30px 16px 40px}
+  .welcome-row{align-items:flex-start;gap:12px}
+  .welcome-row>div:first-child{min-width:0;flex:1}
+  .welcome-row h1{font-size:26px;line-height:1.1;overflow-wrap:anywhere}
+  .welcome-row .muted{max-width:none;font-size:11px;line-height:1.5}
+  .add-main{width:40px;height:40px;flex:none;margin-top:0;padding:0;font-size:0}
+  .add-main svg{width:18px;height:18px}
+  .toolbar{margin-top:28px;margin-bottom:16px;gap:10px}
+  .search{width:100%;max-width:none}
+  .entry-list{grid-template-columns:1fr;gap:10px}
+  .entry-card,
+  .entry-card.entry-color-0,
+  .entry-card.entry-color-1,
+  .entry-card.entry-color-2,
+  .entry-card.entry-color-3,
+  .entry-card.entry-color-4,
+  .entry-card.entry-color-5{min-height:74px;padding:13px 12px}
+  .entry-card .entry-icon{width:42px;height:42px;flex:none;margin:0}
+  .entry-card .entry-info{min-width:0;margin-left:10px}
+  .entry-card .entry-info strong,.entry-card .entry-info span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .invite-inline{align-items:flex-start;flex-wrap:wrap;gap:10px;padding-top:18px}
+  .invite-inline>div:nth-child(2){min-width:0;flex:1}
+  .invite-inline form{width:100%;margin-left:45px}
+  .invite-inline input{min-width:0;flex:1;width:auto}
+  .household-title,.household-name-form{min-width:0;max-width:100%}
+  .household-title h1{min-width:0;overflow-wrap:anywhere}
+  .household-name-form input{width:auto;min-width:0;flex:1;font-size:24px}
+  .modal-backdrop{padding:10px}
+  .modal{width:100%;max-height:calc(100dvh - 20px);padding:18px 16px}
+  .form-actions,.detail-actions{flex-wrap:wrap}
+  .detail-actions .danger{margin-right:auto}
+  .auth-screen,.setup-screen,.loading-screen{padding:16px}
+  .auth-card,.setup-card{width:100%;padding:26px 20px}
+  .auth-card h1,.setup-card h1{font-size:28px}
+}
+
+@media(max-width:430px){
+  .top-actions .member-stack{display:none}
+  .topbar{padding-left:12px;padding-right:12px}
+  .content{padding-left:14px;padding-right:14px}
+  .welcome-row h1{font-size:23px}
+  .toolbar{margin-top:24px}
+  .invite-inline form{margin-left:0}
+  .invite-inline>div:nth-child(2){max-width:calc(100% - 46px)}
+  .modal{padding:16px 14px}
+  .two-fields{grid-template-columns:1fr}
+  .form-actions>*{flex:1}
+  .form-actions .danger{flex:0 0 auto}
+}
+
+/* Restore the light surface values after the shared phone rules above. */
+@media(max-width:760px){
+  [data-theme="light"] .sidebar{background:#fbfbf9;border-top-color:#e9eae5}
+  [data-theme="light"] .topbar{background:#fafaf8}
+  [data-theme="light"] .entry-card,
+  [data-theme="light"] .entry-card.entry-color-0,
+  [data-theme="light"] .entry-card.entry-color-1,
+  [data-theme="light"] .entry-card.entry-color-2,
+  [data-theme="light"] .entry-card.entry-color-3,
+  [data-theme="light"] .entry-card.entry-color-4,
+  [data-theme="light"] .entry-card.entry-color-5{background:#fff;border-color:#dfe3de}
+}
+
+/* The dark desktop treatment has more specific selectors, so mirror the
+   phone layout explicitly to keep both themes structurally identical. */
+@media(max-width:760px){
+  [data-theme="dark"] .app-shell{padding-bottom:68px;background:#111412}
+  [data-theme="dark"] .sidebar{
+    inset:auto 0 0;
+    width:100%;
+    height:64px;
+    padding:8px 12px;
+    flex-direction:row;
+    align-items:center;
+    gap:8px;
+    background:#0b0e0c;
+    border:0;
+    border-top:1px solid #252a27;
+    box-shadow:0 -6px 20px #05070655;
+  }
+  [data-theme="dark"] .sidebar>.brand,
+  [data-theme="dark"] .sidebar .workspace,
+  [data-theme="dark"] .sidebar .nav-label{display:none}
+  [data-theme="dark"] .sidebar .nav-item,
+  [data-theme="dark"] .sidebar .nav-item.active{
+    width:auto;
+    height:46px;
+    flex:1;
+    min-width:0;
+    margin:0;
+    padding:0 8px;
+    justify-content:center;
+    gap:7px;
+    font-size:11px;
+    white-space:nowrap;
+    box-shadow:none;
+  }
+  [data-theme="dark"] .sidebar .nav-item>span{display:inline}
+  [data-theme="dark"] .sidebar .nav-item>span:last-child{display:none}
+  [data-theme="dark"] .sidebar .nav-item .star{display:inline;font-size:18px}
+  [data-theme="dark"] .sidebar-bottom{display:block;margin:0 0 0 auto}
+  [data-theme="dark"] .sidebar-bottom .security-note,
+  [data-theme="dark"] .sidebar .profile-name,
+  [data-theme="dark"] .sidebar .profile .icon-button{display:none}
+  [data-theme="dark"] .sidebar .profile{border:0;padding:0;margin:0;justify-content:center}
+  [data-theme="dark"] .main{margin-left:0;min-width:0;background:transparent}
+  [data-theme="dark"] .topbar{height:58px;padding:0 16px;background:#111412;border-bottom:1px solid #252a27}
+  [data-theme="dark"] .content{width:100%;max-width:none;padding:30px 16px 40px}
+  [data-theme="dark"] .welcome-row{align-items:flex-start;gap:12px}
+  [data-theme="dark"] .welcome-row>div:first-child{min-width:0;flex:1}
+  [data-theme="dark"] .welcome-row h1{font-size:26px;line-height:1.1;letter-spacing:-1px;overflow-wrap:anywhere}
+  [data-theme="dark"] .welcome-row .muted{max-width:none;font-size:11px;line-height:1.5}
+  [data-theme="dark"] .add-main{width:40px;height:40px;flex:none;margin-top:0;padding:0;font-size:0;background:#2b332e;color:#e4e9e4;border-color:#4a554d}
+  [data-theme="dark"] .toolbar{margin-top:28px;margin-bottom:16px;gap:10px}
+  [data-theme="dark"] .search{width:100%;max-width:none}
+  [data-theme="dark"] .entry-list{grid-template-columns:1fr;gap:10px}
+  [data-theme="dark"] .entry-card,
+  [data-theme="dark"] .entry-card.entry-color-0,
+  [data-theme="dark"] .entry-card.entry-color-1,
+  [data-theme="dark"] .entry-card.entry-color-2,
+  [data-theme="dark"] .entry-card.entry-color-3,
+  [data-theme="dark"] .entry-card.entry-color-4,
+  [data-theme="dark"] .entry-card.entry-color-5{min-height:74px;padding:13px 12px}
+  [data-theme="dark"] .entry-card .entry-icon{width:42px;height:42px;flex:none;margin:0}
+  [data-theme="dark"] .entry-card .entry-info{min-width:0;margin-left:10px}
+  [data-theme="dark"] .entry-card .entry-info strong,
+  [data-theme="dark"] .entry-card .entry-info span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  [data-theme="dark"] .invite-inline{align-items:flex-start;flex-wrap:wrap;gap:10px;padding-top:18px}
+  [data-theme="dark"] .invite-inline>div:nth-child(2){min-width:0;flex:1}
+  [data-theme="dark"] .invite-inline form{width:100%;margin-left:45px}
+  [data-theme="dark"] .invite-inline input{min-width:0;flex:1;width:auto}
+  [data-theme="dark"] .household-title,
+  [data-theme="dark"] .household-name-form{min-width:0;max-width:100%}
+  [data-theme="dark"] .household-title h1{min-width:0;overflow-wrap:anywhere}
+  [data-theme="dark"] .household-name-form input{width:auto;min-width:0;flex:1;font-size:24px}
+  [data-theme="dark"] .modal-backdrop{padding:10px}
+  [data-theme="dark"] .modal{width:100%;max-height:calc(100dvh - 20px);padding:18px 16px}
+  [data-theme="dark"] .form-actions,
+  [data-theme="dark"] .detail-actions{flex-wrap:wrap}
+}
+
+@media(max-width:430px){
+  [data-theme="dark"] .topbar{padding-left:12px;padding-right:12px}
+  [data-theme="dark"] .content{padding-left:14px;padding-right:14px}
+  [data-theme="dark"] .welcome-row h1{font-size:23px}
+  [data-theme="dark"] .toolbar{margin-top:24px}
+  [data-theme="dark"] .invite-inline form{margin-left:0}
+  [data-theme="dark"] .invite-inline>div:nth-child(2){max-width:calc(100% - 46px)}
+  [data-theme="dark"] .modal{padding:16px 14px}
+  [data-theme="dark"] .two-fields{grid-template-columns:1fr}
+  [data-theme="dark"] .form-actions>*{flex:1}
+  [data-theme="dark"] .form-actions .danger{flex:0 0 auto}
+}
