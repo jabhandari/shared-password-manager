@@ -219,6 +219,57 @@ body,button,input,textarea{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,
   .form-actions .danger{flex:0 0 auto}
 }
 
+.workspace{position:relative;cursor:default;text-align:left;width:calc(100% - 8px)}
+.workspace>svg{display:none!important}
+.workspace:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.member-menu{position:absolute;top:calc(100% + 8px);left:0;right:0;z-index:20;padding:8px;background:var(--paper);border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 28px #20241f24;display:flex;flex-direction:column;gap:3px}
+.member-menu-heading{padding:5px 8px 7px;color:var(--muted);font-size:8px;letter-spacing:1px;font-weight:700}
+.member-row{display:flex;align-items:center;gap:8px;min-width:0;padding:7px 6px;border-radius:7px}
+.member-row:hover{background:var(--mint)}
+.member-row>div:last-child{display:flex;min-width:0;flex:1;flex-direction:column;gap:3px}
+.member-row strong,.member-row small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.member-row strong{font-size:10px;font-weight:600;color:var(--ink)}
+.member-row small{font-size:9px;color:var(--muted)}
+[data-theme="dark"] .member-menu{background:#171c18;border-color:#303730;box-shadow:0 12px 28px #05070680}
+[data-theme="dark"] .member-row:hover{background:#26372b}
+
+@media(max-width:760px){
+  .sidebar .workspace{
+    display:flex;
+    position:relative;
+    z-index:30;
+    flex:0 0 42px;
+    width:42px;
+    height:46px;
+    margin:0;
+    padding:0;
+    justify-content:center;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+    pointer-events:auto;
+  }
+  .sidebar .workspace>div:nth-child(2),
+  .sidebar .workspace>svg{display:none}
+  .sidebar .workspace .avatar{width:34px;height:34px}
+  .member-menu{position:fixed;left:12px;right:12px;bottom:74px;top:auto;max-height:55vh;overflow:auto}
+}
+
+@media(max-width:760px){
+  [data-theme="dark"] .sidebar .workspace{
+    display:flex;
+    width:42px;
+    height:46px;
+    margin:0;
+    padding:0;
+    border:0;
+    background:transparent;
+    box-shadow:none;
+  }
+  [data-theme="dark"] .sidebar .workspace>div:nth-child(2),
+  [data-theme="dark"] .sidebar .workspace>svg{display:none}
+}
+
 /* Restore the light surface values after the shared phone rules above. */
 @media(max-width:760px){
   [data-theme="light"] .sidebar{background:#fbfbf9;border-top-color:#e9eae5}

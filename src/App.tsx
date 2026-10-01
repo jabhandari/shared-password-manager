@@ -53,6 +53,55 @@ export default function App() {
   }, [darkMode])
 
   useEffect(() => {
+    const workspace = document.querySelector<HTMLElement>('.workspace')
+    if (!workspace || !session) return
+    const members = [session.user.email ?? '', ...partnerEmails].filter(Boolean)
+    const displayName = (email: string) => email.split('@')[0].replace(/[._-]+/g, ' ').replace(/\b\w/g, letter => letter.toUpperCase())
+    workspace.setAttribute('role', 'button')
+    workspace.tabIndex = 0
+    workspace.setAttribute('aria-expanded', 'false')
+    const close = () => {
+      workspace.parentElement?.querySelector('.member-menu')?.remove()
+      workspace.setAttribute('aria-expanded', 'false')
+    }
+    const toggle = (event?: Event) => {
+      event?.stopPropagation()
+      const existing = workspace.parentElement?.querySelector('.member-menu')
+      if (existing) { close(); return }
+      const menu = document.createElement('div')
+      menu.className = 'member-menu'
+      const heading = document.createElement('div')
+      heading.className = 'member-menu-heading'
+      heading.textContent = 'HOUSEHOLD MEMBERS'
+      menu.append(heading)
+      members.forEach((email, index) => {
+        const row = document.createElement('div')
+        row.className = 'member-row'
+        const avatar = document.createElement('div')
+        avatar.className = 'avatar'
+        avatar.textContent = email[0].toUpperCase()
+        const info = document.createElement('div')
+        const name = document.createElement('strong')
+        name.textContent = displayName(email)
+        const address = document.createElement('small')
+        address.textContent = `${email}${index === 0 ? ' · You' : ''}`
+        info.append(name, address)
+        row.append(avatar, info)
+        menu.append(row)
+      })
+      workspace.parentElement?.append(menu)
+      workspace.setAttribute('aria-expanded', 'true')
+    }
+    const onPointerDown = (event: PointerEvent) => toggle(event)
+    workspace.addEventListener('pointerdown', onPointerDown)
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); toggle(event) } }
+    const onDocumentClick = (event: MouseEvent) => { if (!workspace.contains(event.target as Node)) close() }
+    workspace.addEventListener('keydown', onKeyDown)
+    document.addEventListener('click', onDocumentClick)
+    return () => { workspace.removeEventListener('pointerdown', onPointerDown); workspace.removeEventListener('keydown', onKeyDown); document.removeEventListener('click', onDocumentClick); workspace.parentElement?.querySelector('.member-menu')?.remove() }
+  }, [partnerEmails, session])
+
+  useEffect(() => {
     if (!supabase) { setLoading(false); return }
     void supabase.auth.getSession().then(({ data }) => { setSession(data.session); setLoading(false) })
     const { data: listener } = supabase.auth.onAuthStateChange((event, next) => {
